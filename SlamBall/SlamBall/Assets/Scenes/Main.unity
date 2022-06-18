@@ -522,7 +522,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slamAccel: 3
-  gyroText: {fileID: 468781828}
+  horizontalSpeed: 3
+  isMoveable: 1
+  isTraversable: 1
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -754,7 +756,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1504265795
 MonoBehaviour:
   m_ObjectHideFlags: 0

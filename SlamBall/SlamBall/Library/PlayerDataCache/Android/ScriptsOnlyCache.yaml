@@ -4,8 +4,6 @@ ScriptsOnlyBuild:
     - BallController
     - GyroManager
     - PaddleController
-    Unity.Rider.Editor.dll:
-    - Packages.Rider.Editor.UnitTesting.CallbackData
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -49,21 +47,21 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 2006}
+      Script: {instanceID: 1992}
     - Class: 114
-      Script: {instanceID: 2292}
+      Script: {instanceID: 2262}
     - Class: 114
-      Script: {instanceID: 2404}
+      Script: {instanceID: 2370}
     - Class: 114
-      Script: {instanceID: 2570}
+      Script: {instanceID: 2536}
     - Class: 114
-      Script: {instanceID: 2752}
+      Script: {instanceID: 2708}
     - Class: 114
-      Script: {instanceID: 20886}
+      Script: {instanceID: 2922}
     - Class: 114
-      Script: {instanceID: 20892}
+      Script: {instanceID: 3682}
     - Class: 114
-      Script: {instanceID: 24928}
+      Script: {instanceID: 4286}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -311,6 +309,12 @@ ScriptsOnlyBuild:
     className: TextContainer
   - hash:
       serializedVersion: 2
+      Hash: b0191926c062375ee2bacd826e132106
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: GyroManager
+  - hash:
+      serializedVersion: 2
       Hash: 8aa3d6ccbcb54ee8db6c1229854adaaa
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -455,6 +459,12 @@ ScriptsOnlyBuild:
     className: ControlPlayableAsset
   - hash:
       serializedVersion: 2
+      Hash: b2724c86199da6005e93950a32ee6203
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PaddleController
+  - hash:
+      serializedVersion: 2
       Hash: ef5c43f921427d03730f6ea4c848f07d
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -497,6 +507,12 @@ ScriptsOnlyBuild:
     className: ActivationPlayableAsset
   - hash:
       serializedVersion: 2
+      Hash: d09dfc8d7f16cef22239840e5b0f8f0c
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: BallController
+  - hash:
+      serializedVersion: 2
       Hash: 7ab0e790220bdca831fdd886b339039d
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -507,25 +523,7 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: TouchInputModule
-  - hash:
-      serializedVersion: 2
-      Hash: b2724c86199da6005e93950a32ee6203
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: PaddleController
-  - hash:
-      serializedVersion: 2
-      Hash: b0559a5c920778734c4626ff4cd6d35b
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: BallController
-  - hash:
-      serializedVersion: 2
-      Hash: b0191926c062375ee2bacd826e132106
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: GyroManager
   platform: 13
   scenePathNames:
   - Assets/Scenes/Main.unity
-  playerPath: C:/Dev/SlamBall/Builds/Slam Ball.apk
+  playerPath: C:/Dev/BallGame/BallGame/SlamBall/Builds/Slam Ball!.apk

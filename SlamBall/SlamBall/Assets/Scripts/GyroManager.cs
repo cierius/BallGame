@@ -23,7 +23,7 @@ public class GyroManager : MonoBehaviour
         if(gyroActive)
         {
             rot = gyro.rotationRate;
-            print(rot);
+            //print(rot);
         }
 
         gyroEnabled.text = $"Gyro enabled: {gyroActive}";
