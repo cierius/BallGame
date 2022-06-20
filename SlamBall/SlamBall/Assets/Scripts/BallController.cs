@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class BallController : MonoBehaviour
 {
     // References
+    private ScoreManager score;
     private Rigidbody rb;
+
+    public Text jumpText;
 
     // Gyro variables
     private Gyroscope gyro;
@@ -17,18 +21,23 @@ public class BallController : MonoBehaviour
     public Text gyroEnabled, gyroRot, gyroAttitude;
 
     // Ball movement variables
-    public float slamAccel = 2.5f; // The rate at which the ball accelerates downward when being "slammed"
+    public float jumpForce = 5.0f;
+    private bool jumpOnCooldown = false;
+    public int jumpsRemaining = 5;
     public float horizontalSpeed = 1f;
     public bool isMoveable = true;
     public bool isTraversable = true;
 
-    //Score
-    public int score;
-    public float maxHeight;
+    private Vector3 origin;
 
     private void Awake()
     {
+        Screen.sleepTimeout = (int)SleepTimeout.NeverSleep;
+
         rb = GetComponent<Rigidbody>();
+        score = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+
+        jumpText.text = $"{jumpsRemaining}";
     }
 
     private void Start()
@@ -36,22 +45,21 @@ public class BallController : MonoBehaviour
         // Try to enable the gyro of the device
         if(EnableGyro())
             print($"Gyro {gyroActive}");
+
+        origin = transform.position;
     }
 
     void Update()
-    {
-        // Slam the ball when a touch is detected on the screen
-        if(CheckTouch())
-            rb.AddForce(new Vector3(0f, -slamAccel, 0f), ForceMode.Force);
-        
+    {       
         // Move the ball left / right based on the phone tilting left / right
         if(isTraversable)
             BallTraverse();
 
         // PC Debugging
-        if(Input.GetMouseButton(0))
+        if(Input.GetMouseButton(0) || CheckTouch())
         {
-            rb.AddForce(new Vector3(0f, -slamAccel, 0f), ForceMode.Force);
+            //rb.AddForce(new Vector3(0f, -slamAccel, 0f), ForceMode.Force);
+            StartCoroutine(Jump());
         }
 
         // Reset the ball via keyboard or when the ball falls below a certain point, for use while developing
@@ -61,11 +69,14 @@ public class BallController : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// Resets the ball to its origin position and zeros its velocity
+    /// </summary>
     private void ResetBall()
     {
         rb.velocity = Vector3.zero;
-        transform.position = Vector3.zero;
+        transform.position = origin;
+        jumpsRemaining = 5;
     }
 
     /// <summary>
@@ -100,19 +111,40 @@ public class BallController : MonoBehaviour
     {
         if (gyroActive)
         {
-            rot = gyro.userAcceleration;
+            //print(gyro.gravity);
+            //rot = gyro.userAcceleration;
+            rot = gyro.gravity;
 
             gyroEnabled.text = $"Gyro enabled: {gyroActive}";
             gyroRot.text = $"Gyro rot: {rot}";
             gyroAttitude.text = $"Gyro Att: {gyro.attitude}";
 
-            transform.position += new Vector3(-rot.z * horizontalSpeed, 0f, 0f) * Time.deltaTime;
+            transform.position += new Vector3(rot.x * horizontalSpeed, 0f, 0f) * Time.deltaTime;
         }
     }
 
 
+    private IEnumerator Jump()
+    {
+        if (!jumpOnCooldown && jumpsRemaining > 0)
+        {
+            rb.velocity = Vector3.zero;
+            rb.AddForce(new Vector3(0f, jumpForce, 0f), ForceMode.VelocityChange);
+
+            jumpsRemaining--;
+            jumpText.text = $"{jumpsRemaining}";
+            jumpOnCooldown = true;
+
+            yield return new WaitForSeconds(1f);
+            
+            jumpOnCooldown = false;
+        }
+
+        yield return null;
+    }
+
     /// <summary>
-    /// Function thats tries to enable the device's gyroscope, does nothing if the device doesn't support gyro.
+    /// Function thats tries to enable the device's gyroscope, returns false if the device doesn't support gyro.
     /// </summary>
     /// <returns></returns>
     private bool EnableGyro()
@@ -120,6 +152,7 @@ public class BallController : MonoBehaviour
         if (gyroActive)
             return true;
 
+        // If the system supports gyro then assign a reference to it, enable it, and then return true
         if (SystemInfo.supportsGyroscope)
         {
             gyro = Input.gyro;
@@ -132,15 +165,32 @@ public class BallController : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Called when colliding with non-trigger colliders
+    /// </summary>
+    /// <param name="coll"></param>
     private void OnCollisionEnter(Collision coll)
     {
         if(coll.transform.tag == "Town")
         {
+            // When the ball touches the ground below the first paddle
             ResetBall();
         }
         else if(coll.transform.tag == "Paddle")
         {
-            score += 1;
+            if(!coll.collider.isTrigger)
+            {
+                score.AddScore(1);
+                // give player a jump every 5 score
+                if (score.GetScore() % 5 == 0 && score.GetScore() != 0)
+                {
+                    jumpsRemaining++;
+                    jumpText.text = $"{jumpsRemaining}";
+                }
+
+                rb.AddForce(new Vector3(0f, 2f, 0f), ForceMode.VelocityChange);
+            }
+                
         }
     }
 

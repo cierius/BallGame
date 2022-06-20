@@ -1,4 +1,5 @@
 -a="C:\Dev\BallGame\BallGame\SlamBall\SlamBall\Library\PlayerScriptAssemblies\Assembly-CSharp.dll"
+-a="C:\Dev\BallGame\BallGame\SlamBall\SlamBall\Library\PlayerScriptAssemblies\Cinemachine.dll"
 -a="C:\Dev\BallGame\BallGame\SlamBall\SlamBall\Library\PlayerScriptAssemblies\UnityEngine.TestRunner.dll"
 -a="C:\Dev\BallGame\BallGame\SlamBall\SlamBall\Library\PlayerScriptAssemblies\Unity.Timeline.dll"
 -a="C:\Dev\BallGame\BallGame\SlamBall\SlamBall\Library\PlayerScriptAssemblies\Unity.TextMeshPro.dll"
