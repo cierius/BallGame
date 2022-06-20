@@ -13,13 +13,18 @@ public class BallController : MonoBehaviour
     private Vector3 rot; // gyro's rotational
     private bool gyroActive = false;
 
+    // Debug Gyro Variables
+    public Text gyroEnabled, gyroRot, gyroAttitude;
+
     // Ball movement variables
     public float slamAccel = 2.5f; // The rate at which the ball accelerates downward when being "slammed"
     public float horizontalSpeed = 1f;
-
     public bool isMoveable = true;
     public bool isTraversable = true;
 
+    //Score
+    public int score;
+    public float maxHeight;
 
     private void Awake()
     {
@@ -37,7 +42,7 @@ public class BallController : MonoBehaviour
     {
         // Slam the ball when a touch is detected on the screen
         if(CheckTouch())
-            rb.AddForce(new Vector3(0f, -slamAccel, 0f), ForceMode.Acceleration);
+            rb.AddForce(new Vector3(0f, -slamAccel, 0f), ForceMode.Force);
         
         // Move the ball left / right based on the phone tilting left / right
         if(isTraversable)
@@ -46,17 +51,22 @@ public class BallController : MonoBehaviour
         // PC Debugging
         if(Input.GetMouseButton(0))
         {
-            rb.AddForce(new Vector3(0f, -slamAccel, 0f), ForceMode.Acceleration);
+            rb.AddForce(new Vector3(0f, -slamAccel, 0f), ForceMode.Force);
         }
 
         // Reset the ball via keyboard or when the ball falls below a certain point, for use while developing
         if(Input.GetKeyDown(KeyCode.Space) || transform.position.y <= -5f)
         {
-            rb.velocity = Vector3.zero;
-            transform.position = Vector3.zero;
+            ResetBall();
         }
     }
 
+
+    private void ResetBall()
+    {
+        rb.velocity = Vector3.zero;
+        transform.position = Vector3.zero;
+    }
 
     /// <summary>
     /// Function for managing touches, returns true if there was a touch.
@@ -90,7 +100,11 @@ public class BallController : MonoBehaviour
     {
         if (gyroActive)
         {
-            rot = gyro.rotationRate;
+            rot = gyro.userAcceleration;
+
+            gyroEnabled.text = $"Gyro enabled: {gyroActive}";
+            gyroRot.text = $"Gyro rot: {rot}";
+            gyroAttitude.text = $"Gyro Att: {gyro.attitude}";
 
             transform.position += new Vector3(-rot.z * horizontalSpeed, 0f, 0f) * Time.deltaTime;
         }
@@ -116,4 +130,19 @@ public class BallController : MonoBehaviour
         else
             return false;
     }
+
+
+    private void OnCollisionEnter(Collision coll)
+    {
+        if(coll.transform.tag == "Town")
+        {
+            ResetBall();
+        }
+        else if(coll.transform.tag == "Paddle")
+        {
+            score += 1;
+        }
+    }
+
+
 }

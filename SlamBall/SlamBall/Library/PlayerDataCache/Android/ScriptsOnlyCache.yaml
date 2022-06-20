@@ -2,7 +2,6 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - BallController
-    - GyroManager
     - PaddleController
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -36,6 +35,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 54
       Script: {instanceID: 0}
+    - Class: 64
+      Script: {instanceID: 0}
     - Class: 65
       Script: {instanceID: 0}
     - Class: 81
@@ -47,21 +48,19 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1992}
+      Script: {instanceID: 2042}
     - Class: 114
-      Script: {instanceID: 2262}
+      Script: {instanceID: 2312}
     - Class: 114
-      Script: {instanceID: 2370}
+      Script: {instanceID: 2420}
     - Class: 114
-      Script: {instanceID: 2536}
+      Script: {instanceID: 2586}
     - Class: 114
-      Script: {instanceID: 2708}
+      Script: {instanceID: 2758}
     - Class: 114
-      Script: {instanceID: 2922}
+      Script: {instanceID: 3732}
     - Class: 114
-      Script: {instanceID: 3682}
-    - Class: 114
-      Script: {instanceID: 4286}
+      Script: {instanceID: 4336}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -507,7 +506,7 @@ ScriptsOnlyBuild:
     className: ActivationPlayableAsset
   - hash:
       serializedVersion: 2
-      Hash: d09dfc8d7f16cef22239840e5b0f8f0c
+      Hash: 1517e554667a7725496cabac41457472
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: BallController

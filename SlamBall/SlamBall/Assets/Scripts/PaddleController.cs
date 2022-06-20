@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PaddleController : MonoBehaviour
 {
+    private Transform playerPos;
+
     public bool hasGameStarted = true;
     public bool shouldMoveLeft = false; // The direction of travel
 
@@ -18,6 +20,9 @@ public class PaddleController : MonoBehaviour
     {
         if(showGizmos)
         {
+            leftEnd = new Vector2(leftEnd.x, transform.position.y);
+            rightEnd = new Vector2(rightEnd.x, transform.position.y);
+
             Gizmos.color = new Color(1f, 1f, 1f, 0.25f);
             Gizmos.DrawCube(leftEnd, new Vector3(0.25f, 0.25f, 0.25f));
             Gizmos.DrawCube(rightEnd, new Vector3(0.25f, 0.25f, 0.25f));
@@ -28,7 +33,7 @@ public class PaddleController : MonoBehaviour
 
     private void Awake()
     {
-        
+        playerPos = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
 
@@ -37,6 +42,11 @@ public class PaddleController : MonoBehaviour
         if(hasGameStarted)
         {
             Move();
+
+            if (playerPos.position.y < transform.position.y)
+                GetComponent<Collider>().isTrigger = true;
+            else
+                GetComponent<Collider>().isTrigger = false;
         }
     }
 
@@ -64,5 +74,14 @@ public class PaddleController : MonoBehaviour
         }
 
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, leftEnd.x - variance, rightEnd.x + variance), transform.position.y, 0f);
+    }
+
+
+    private void OnTriggerExit(Collider coll)
+    {
+        if(coll.tag == "Player")
+        {
+            GetComponent<Collider>().isTrigger = false;
+        }
     }
 }
