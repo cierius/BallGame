@@ -22550,7 +22550,7 @@ IL_0074:
 		L_36 = Sprite_get_texture_mD03E68058C9F727321FE643CBDB3A469F96E49FB(L_35, /*hidden argument*/NULL);
 		NullCheck(L_36);
 		int32_t L_37;
-		L_37 = VirtFuncInvoker0< int32_t >::Invoke(4 /* System.Int32 UnityEngine.Texture::get_width() */, L_36);
+		L_37 = VirtFuncInvoker0< int32_t >::Invoke(5 /* System.Int32 UnityEngine.Texture::get_width() */, L_36);
 		V_3 = ((float)((float)((float)il2cpp_codegen_add((float)L_32, (float)L_34))/(float)((float)((float)L_37))));
 		// float y = (spriteRect.y + local.y) / activeSprite.texture.height;
 		float L_38;
@@ -22564,7 +22564,7 @@ IL_0074:
 		L_42 = Sprite_get_texture_mD03E68058C9F727321FE643CBDB3A469F96E49FB(L_41, /*hidden argument*/NULL);
 		NullCheck(L_42);
 		int32_t L_43;
-		L_43 = VirtFuncInvoker0< int32_t >::Invoke(6 /* System.Int32 UnityEngine.Texture::get_height() */, L_42);
+		L_43 = VirtFuncInvoker0< int32_t >::Invoke(7 /* System.Int32 UnityEngine.Texture::get_height() */, L_42);
 		V_4 = ((float)((float)((float)il2cpp_codegen_add((float)L_38, (float)L_40))/(float)((float)((float)L_43))));
 	}
 

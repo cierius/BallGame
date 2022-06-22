@@ -55,6 +55,16 @@ public class BallController : MonoBehaviour
         if(isTraversable)
             BallTraverse();
 
+        //PC Debugging
+        if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        {
+            BallTraverseKB(true);
+        }
+        else if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        {
+            BallTraverseKB(false);
+        }
+
         // PC Debugging
         if(Input.GetMouseButton(0) || CheckTouch())
         {
@@ -123,6 +133,14 @@ public class BallController : MonoBehaviour
         }
     }
 
+
+    private void BallTraverseKB(bool left)
+    {
+        if(left)
+            transform.position += new Vector3(-0.75f * horizontalSpeed, 0f, 0f) * Time.deltaTime;
+        else
+            transform.position += new Vector3(0.75f * horizontalSpeed, 0f, 0f) * Time.deltaTime;
+    }
 
     private IEnumerator Jump()
     {

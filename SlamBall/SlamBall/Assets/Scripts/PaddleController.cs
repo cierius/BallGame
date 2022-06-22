@@ -4,12 +4,24 @@ using UnityEngine;
 
 public class PaddleController : MonoBehaviour
 {
+    private enum PaddleType 
+    {
+        Static,
+        JumpBoost,
+        JumpNegate
+    };
+
     // Reference to the player position for use in turning onTrigger = false/true based on height
     private Transform playerPos;
 
-    // Basic game state
-    public bool hasGameStarted = true;
+
+
+
+    // Basic movement states
+    public bool shouldMove = false;
     public bool shouldMoveLeft = false; // The direction of travel
+
+    public bool canJumpThrough = true;
 
     [Range(-20f, 20f)] public float left, right;
     private Vector3 leftEnd, rightEnd;
@@ -46,16 +58,20 @@ public class PaddleController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(hasGameStarted)
+        if(GameStateManager.State == GameStateManager.GameState.Playing)
         {
-            Move();
+            if(shouldMove)
+                Move();
 
             // This basically allows the player to jump up through the paddles but then once the player is above the collider is changed to not being a trigger.
             // Also, switches the paddle back to being a trigger if the player falls below the paddle.
-            if (playerPos.position.y < transform.position.y)
-                GetComponent<Collider>().isTrigger = true;
-            else
-                GetComponent<Collider>().isTrigger = false;
+            if (canJumpThrough)
+            {
+                if (playerPos.position.y < transform.position.y)
+                    GetComponent<Collider>().isTrigger = true;
+                else
+                    GetComponent<Collider>().isTrigger = false;
+            } 
         }
     }
 

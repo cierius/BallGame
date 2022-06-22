@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Town
   - Paddle
+  - LoadingBar
   layers:
   - Default
   - TransparentFX
